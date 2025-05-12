@@ -1,0 +1,33 @@
+# Next.js specific
+.next/
+out/
+dist/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Dependencies
+node_modules/
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# System files
+.DS_Store
+Thumbs.db
+
+# Logs and temp files
+*.log
+tmp/
+temp/
+
+# Editor and IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Optional: Ignore public/images build
+public/images/build
