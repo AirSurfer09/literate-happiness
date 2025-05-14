@@ -1,9 +1,10 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import {
   PixelStreamComponent,
   PixelStreamComponentProps,
+  PixelStreamComponentHandles,
 } from "@airsurfer09/web-embed";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { vscDarkPlus } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -23,6 +24,7 @@ import {
 import { baseURL, routes } from "@/app/resources";
 import { home, about, person, newsletter } from "@/app/resources/content";
 import { Mailchimp } from "@/components";
+import { InitialScreen } from "./InitialScreen";
 
 const codeExamples = [
   {
@@ -122,9 +124,7 @@ export default App;`,
 
 export default function ClientHome() {
   const initialExpId = "01ad2713-e35b-4e79-9814-05db90bf1151";
-  const streamConfig: PixelStreamComponentProps = {
-    expId: initialExpId,
-  };
+  const pixelStreamRef = useRef<PixelStreamComponentHandles>(null);
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -224,7 +224,17 @@ export default function ClientHome() {
                 overflow: "hidden",
               }}
             >
-              <PixelStreamComponent {...streamConfig} />
+              <PixelStreamComponent
+                ref={pixelStreamRef}
+                expId={initialExpId}
+                InitialScreen={
+                  <InitialScreen
+                    onClick={() =>
+                      pixelStreamRef.current?.initializeExperience()
+                    }
+                  />
+                }
+              />
             </Grid>
             <Flex
               mobileDirection="column"
